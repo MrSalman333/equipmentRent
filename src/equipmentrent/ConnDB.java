@@ -43,18 +43,25 @@ public class ConnDB {
             rs = stat.executeQuery(query);
 
             if (rs.first()) {
-                System.out.println("some data");
-                System.out.println(rs.getString(1));
+                System.out.println("The User alrady exists");
+                if(     user.key == rs.getInt("keyId") &&
+                        user.id == rs.getInt("jucId")  &&
+                        user.level == rs.getInt("level")&&
+                        user.name.equals(rs.getString("name"))&&
+                        user.phone.equals(rs.getString("phone")))
+                    System.out.print(" and there are no defrinces!");
+                else{    
+                    System.out.println(" and there are some difrncess");
+                    query = "UPDATE user SET name='" +user.name+ "', level=" +user.level+ ", phone='" +user.phone+ "' WHERE jucId =" + user.id;                
+                }
                 System.out.println(rs.getString("jucId"));
             }else{
-                System.out.println("no data");
+                System.out.println("The User has been inserted");
             }
 
             while(rs.next()){
                 
-            }
-
-            
+            }  
             
         } catch (SQLException ex) {
             Logger.getLogger(ConnDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -96,8 +103,6 @@ public class ConnDB {
         
         catch(Exception e){
            System.err.println("Error "+e);
-        }
-        
-    
+        }   
     }    
 }
