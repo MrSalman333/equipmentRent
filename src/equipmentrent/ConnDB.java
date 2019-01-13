@@ -77,7 +77,7 @@ public class ConnDB {
 
             if (rs.first()) {
                 System.out.println("the user is there");
-                user.id = rs.getString("jucId");
+                user.id = rs.getInt("jucId");
                 user.name = rs.getString("name");
                 user.level = rs.getInt("level");
                 user.phone = rs.getString("phone");
@@ -88,15 +88,10 @@ public class ConnDB {
             while(rs.next()){
                 
             }
-
-            
             
         } catch (SQLException ex) {
             Logger.getLogger(ConnDB.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-       
-    
     }
     
     public void insertData(String id,String name,String mood){
