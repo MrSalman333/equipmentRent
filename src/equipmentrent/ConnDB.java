@@ -70,22 +70,32 @@ public class ConnDB {
         
         return "";
     }
-    public void callData(){
-        try  {
-           String query = "select * from tabletest";
-           rs = stat.executeQuery(query);
-           
-            System.out.println("Recordes from database ");
-            while(rs.next()){
-                String id = rs.getString("id");
-                String name = rs.getString("name");
-                String mood = rs.getString("mood");
-                System.out.println("[ "+"Name: "+name+"\t Mood: "+mood+"\t ID: "+id +" ]");
+   public void getData(User user){
+        String query = "SELECT * FROM user WHERE jucId =" + user.id;
+        try {
+            rs = stat.executeQuery(query);
+
+            if (rs.first()) {
+                System.out.println("the user is there");
+                user.id = rs.getString("jucId");
+                user.name = rs.getString("name");
+                user.level = rs.getInt("level");
+                user.phone = rs.getString("phone");
+            }else{
+                System.out.println("no data");
             }
+
+            while(rs.next()){
+                
+            }
+
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnDB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch(Exception e){
-           System.err.println("Error "+e);
-        }
+
+       
     
     }
     
