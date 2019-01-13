@@ -78,20 +78,11 @@ public class ConnDB {
             }else{
                 System.out.println("no data");
                 return false;
-            }
-
-            while(rs.next()){
-                
-            }
-
-            
-            
+            }   
         } catch (SQLException ex) {
             Logger.getLogger(ConnDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-
-       
-    
     }
     
     public void insertData(String id,String name,String mood){
