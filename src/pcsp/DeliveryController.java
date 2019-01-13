@@ -5,6 +5,8 @@
  */
 package pcsp;
 
+import equipmentrent.ConnDB;
+import equipmentrent.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,10 +25,14 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author ali
  */
+
+  
 public class DeliveryController implements Initializable {
-
-    User u = new User("ALi", "35110037", "35110037", "966551138844", 5);
-
+    
+    
+    User u = new User("1");
+    ConnDB con = new ConnDB();
+    
     @FXML
     private Button NextToDelivery_1;
     @FXML
