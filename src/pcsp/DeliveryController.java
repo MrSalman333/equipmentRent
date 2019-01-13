@@ -30,7 +30,6 @@ import javafx.scene.layout.AnchorPane;
 public class DeliveryController implements Initializable {
     
     
-    User u = new User("1");
     ConnDB con = new ConnDB();
     
     @FXML
@@ -48,6 +47,8 @@ public class DeliveryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         errorLable.setVisible(false);  // TODO
+       
+        
     }
 
     @FXML
@@ -70,8 +71,8 @@ public class DeliveryController implements Initializable {
 
     @FXML
     private boolean idCode(ActionEvent event) {
-
-        if (idCode.getText().equals(u.key)) {
+        User u = new User(idCode.getText());
+        if (con.getData(u)) {
             return true;
         } else {
             return false;

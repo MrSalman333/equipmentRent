@@ -63,7 +63,7 @@ public class ConnDB {
         
         return "";
     }
-    public void getData(User user){
+    public boolean getData(User user){
         String query = "SELECT * FROM user WHERE jucId =" + user.id;
         try {
             rs = stat.executeQuery(query);
@@ -74,8 +74,10 @@ public class ConnDB {
                 user.name = rs.getString("name");
                 user.level = rs.getInt("level");
                 user.phone = rs.getString("phone");
+                return true;
             }else{
                 System.out.println("no data");
+                return false;
             }
 
             while(rs.next()){
