@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 package equipmentrent;
+
 import java.security.PublicKey;
 import java.sql.*;
-
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,51 +15,54 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ConnDB {
+
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
     private static final String CONN_STRING = "jdbc:mysql://localhost:3306/equipmentrent";
 
-    private Connection con ;
+    private Connection con;
     private Statement stat;
-    private ResultSet rs ;
+    private ResultSet rs;
 
-    public ConnDB(){
-        try  {
-           //Class.forName("com.mysql.cj.jdbc.Driver");
+    public ConnDB() {
+        try {
+            //Class.forName("com.mysql.cj.jdbc.Driver");
 
-           con = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
-           stat = con.createStatement();
+            con = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
+            stat = con.createStatement();
 
             System.out.println("database DONE!!!!");
-        }
-        catch(Exception e){
-           System.err.println("myError"+e);
+        } catch (Exception e) {
+            System.err.println("myError" + e);
         }
     }
 
-    public String update(User user){
-        String query = "SELECT * FROM user WHERE jucId =" + user.id;
+    public String update(User user) {
+        String query = "SELECT * FROM user WHERE keyId =" + user.key; //searsh from data with this ID
         try {
             rs = stat.executeQuery(query);
 
-            if (rs.first()) {
+            if (rs.first()) {//cheack if there is any data returned from the DataBase
                 System.out.println("The User alrady exists");
-                if(     user.key == rs.getInt("keyId") &&
-                        user.id == rs.getInt("jucId")  &&
-                        user.level == rs.getInt("level")&&
-                        user.name.equals(rs.getString("name"))&&
-                        user.phone.equals(rs.getString("phone")))
+                
+                if (user.key == rs.getInt("keyId") //cheack if all the data from the caller is the same as in the DataBase
+                    && user.id == rs.getInt("jucId")
+                    && user.level == rs.getInt("level")
+                    && user.name.equals(rs.getString("name"))
+                    && user.phone.equals(rs.getString("phone"))) {
                     System.out.print(" and there are no defrinces!");
-                else{
+                    
+                } else {
                     System.out.println(" and there are some difrncess");
-                    query = "UPDATE user SET name='" +user.name+ "', level=" +user.level+ ", phone='" +user.phone+ "' WHERE jucId =" + user.id;
+                    stat.execute("UPDATE user SET name='" + user.name + "', level=" + user.level + ", phone='" + user.phone + "' WHERE jucId =" + user.id);
+                    //updated the data in the DataBase
                 }
-                System.out.println(rs.getString("jucId"));
-            }else{
+            } else { //the user is not in the DataBase
                 System.out.println("The User has been inserted");
+                insertData(query, USERNAME, query);
             }
 
-            while(rs.next()){
+            while (rs.next()) {
 
             }
 
@@ -67,10 +70,10 @@ public class ConnDB {
             Logger.getLogger(ConnDB.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
         return "";
     }
-    public boolean getData(User user){
+
+    public boolean getData(User user) {
         String query = "SELECT * FROM user WHERE jucId =" + user.id;
         try {
             rs = stat.executeQuery(query);
@@ -82,7 +85,7 @@ public class ConnDB {
                 user.level = rs.getInt("level");
                 user.phone = rs.getString("phone");
                 return true;
-            }else{
+            } else {
                 System.out.println("no data");
                 return false;
             }
@@ -92,20 +95,18 @@ public class ConnDB {
         }
     }
 
-    public void insertData(String id,String name,String mood){
+    private void insertData(String id, String name, String mood) {
 
         try {
-            stat= con.createStatement();
+            stat = con.createStatement();
             String sql = "insert into tabletest"
-                       + "(id ,name , mood)"
-                       + " values ("+"'"+id+"'"+","+"'"+name+"'"+","+"'"+mood+"')";
+                    + "(id ,name , mood)"
+                    + " values (" + "'" + id + "'" + "," + "'" + name + "'" + "," + "'" + mood + "')";
 
             stat.execute(sql);
             System.out.println("inserted");
-            }
-
-        catch(Exception e){
-           System.err.println("Error "+e);
+        } catch (Exception e) {
+            System.err.println("Error " + e);
         }
     }
 }
