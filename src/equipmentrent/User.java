@@ -5,6 +5,9 @@
  */
 package equipmentrent;
 
+import com.keepautomation.barcode.BarCode;
+import com.keepautomation.barcode.IBarCode;
+
 /**
  *
  * @author MrS
@@ -42,6 +45,25 @@ public class User {
             barrcode = barrcode.substring(barrcode.length() - 18); //creat a random key  with length 12
             u = new User(name, id, Long.parseLong(barrcode), phone, level);
         } while (!cn.update(u));
+        
+        
+        BarCode barcode = new BarCode();
+        barcode.setCodeToEncode(barrcode);
+        barcode.setSymbology(IBarCode.CODE128A);
+        barcode.setX(2);
+        barcode.setY(50);
+        barcode.setRightMargin(0);
+        barcode.setLeftMargin(0);
+        barcode.setTopMargin(0);
+        barcode.setBottomMargin(0);
+        barcode.setChecksumEnabled(true);
+        barcode.setDisplayText(false);
+        barcode.setFnc1(IBarCode.FNC1_NONE);
+        try {
+            barcode.draw(u.id+".gif");
+        } catch (Exception e) {
+            System.out.println("shit");
+        }
         
         return u;
     }

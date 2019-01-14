@@ -107,7 +107,7 @@ public class ConnDB {
             System.out.println("inserted");
             return true;
         } catch (Exception e) {
-            System.err.println("Error " + e);
+            System.err.println("insertData Error " + e);
             return false;
         }
     }
