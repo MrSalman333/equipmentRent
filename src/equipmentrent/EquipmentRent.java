@@ -25,37 +25,17 @@ public class EquipmentRent extends Application {
     @Override
     public void start(Stage primaryStage) {
         Button btn = new Button();
-        btn.setText("Say 'Hello World'");
+        btn.setText("Test The DataBase");
         
         con = new ConnDB();
 
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
+                System.out.println("Hello World!");              
                 
-                
-                
-                User u = new User("salman", "371100178", "1090979582", "0537243511", 3);
-                con.update(u);
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+                User u = new User("salman", 371100178, 1090979582, "0537243511", 3);
+                con.update(u);  
             }
         });
         

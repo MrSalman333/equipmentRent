@@ -11,10 +11,10 @@ package equipmentrent;
  */
 public class User {
     
-    public String name,id,key,phone;
-    public int level;
+    public String name,phone;
+    public int level,id,key;
 
-    public User(String name, String id, String key, String phone, int level) {
+    public User(String name, int id, int key, String phone, int level) {
         this.name = name;
         this.id = id;
         this.key = key;
