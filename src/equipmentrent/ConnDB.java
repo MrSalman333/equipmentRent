@@ -37,7 +37,7 @@ public class ConnDB {
         }
     }
 
-    public String update(User user) {
+    public boolean update(User user) {
         String query = "SELECT * FROM user WHERE keyId =" + user.key; //searsh from data with this ID
         try {
             rs = stat.executeQuery(query);
@@ -51,30 +51,35 @@ public class ConnDB {
                     && user.name.equals(rs.getString("name"))
                     && user.phone.equals(rs.getString("phone"))) {
                     System.out.print(" and there are no defrinces!");
+                    return false;
                     
                 } else {
                     System.out.println(" and there are some difrncess");
-                    stat.execute("UPDATE user SET name='" + user.name + "', level=" + user.level + ", phone='" + user.phone + "' WHERE jucId =" + user.id);
-                    //updated the data in the DataBase
+                    try {
+                        stat.execute("UPDATE user SET name='" + user.name + "', level=" + user.level + ", phone='" + user.phone + "' WHERE jucId =" + user.id);
+                        //updated the data in the DataBase
+                        return true;
+                    } catch (SQLException sQLException) {
+                        System.out.println("error while updating" + sQLException.getMessage());
+                        return false;
+                    }
+                   
                 }
             } else { //the user is not in the DataBase
-                System.out.println("The User has been inserted");
-                insertData(query, USERNAME, query);
-            }
-
-            while (rs.next()) {
-
+                System.out.println("Trying to insert");
+                return insertData(user);
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ConnDB.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("error while cheacking the data" + ex.getMessage());
+            return false;
         }
 
-        return "";
+
     }
 
     public boolean getData(User user) {
-        String query = "SELECT * FROM user WHERE jucId =" + user.id;
+        String query = "SELECT * FROM user WHERE keyId =" + user.key;
         try {
             rs = stat.executeQuery(query);
 
@@ -95,18 +100,15 @@ public class ConnDB {
         }
     }
 
-    private void insertData(String id, String name, String mood) {
+    private boolean insertData(User user) {
 
         try {
-            stat = con.createStatement();
-            String sql = "insert into tabletest"
-                    + "(id ,name , mood)"
-                    + " values (" + "'" + id + "'" + "," + "'" + name + "'" + "," + "'" + mood + "')";
-
-            stat.execute(sql);
+            stat.execute("INSERT INTO `user`(`keyId`, `jucId`, `name`, `level`, `phone`) VALUES ("+ user.key +","+ user.id +",'"+ user.name +"',"+ user.level +",'"+ user.phone +"')");
             System.out.println("inserted");
+            return true;
         } catch (Exception e) {
             System.err.println("Error " + e);
+            return false;
         }
     }
 }

@@ -33,9 +33,7 @@ public class EquipmentRent extends Application {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Hello World!");              
-                
-                User u = new User("salman", 371100178, 1090979582, "0537243511", 3);
-                con.update(u);  
+                User u = User.creatUser("salman new key", 370004178, "05", 43);
             }
         });
         
@@ -53,7 +51,10 @@ public class EquipmentRent extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+       
         launch(args);
+        
+        
         
     }
     
