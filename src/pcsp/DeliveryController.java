@@ -71,7 +71,7 @@ public class DeliveryController implements Initializable {
 
     @FXML
     private boolean idCode(ActionEvent event) {
-        User u = new User(idCode.getText());
+        User u = new User(Integer.parseInt(idCode.getText()));
         if (con.getData(u)) {
             return true;
         } else {

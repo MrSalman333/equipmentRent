@@ -25,14 +25,13 @@ import javafx.scene.layout.AnchorPane;
  * @author ali
  */
 public class MatephorController implements Initializable {
-              User u = new User("ALi", "33", "33", "966551138844", 1);
-              User u1 = new User("ALi", "34", "34", "966551138844", 1);
-              User u2 = new User("ALi", "35", "35", "966551138844", 1);
-              User u3 = new User("ALi", "36", "36", "966551138844", 1);
-              User u4 = new User("ALi", "37", "37", "966551138844", 1);
-              
 
-    
+    User u = new User("ALi", 33, 33, "966551138844", 1);
+    User u1 = new User("ALi", 34, 34, "966551138844", 1);
+    User u2 = new User("ALi", 35, 35, "966551138844", 1);
+    User u3 = new User("ALi", 36, 36, "966551138844", 1);
+    User u4 = new User("ALi", 37, 37, "966551138844", 1);
+
     @FXML
     private AnchorPane Matephor;
     @FXML
@@ -47,15 +46,15 @@ public class MatephorController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-            errorLable.setVisible(false);
+        errorLable.setVisible(false);
 
         // TODO
-    }    
+    }
 
     @FXML
     private void NextToMatephor_1(ActionEvent event) throws IOException {
-          
-            if (IdCode(event) == true) {
+
+        if (IdCode(event) == true) {
             AnchorPane pane = FXMLLoader.load(getClass().getResource("Matephor_1.fxml"));
             pane.setPrefSize(Matephor.getWidth(), Matephor.getHeight());
             System.out.println(Matephor.getWidth() + "  " + Matephor.getHeight());
@@ -66,15 +65,15 @@ public class MatephorController implements Initializable {
         }
     }
 
-      @FXML
+    @FXML
     private void Matephor(MouseEvent event) {
     }
 
     @FXML
     private boolean IdCode(ActionEvent event) {
-        
-         if (IdCode.getText().equals(u.key)||IdCode.getText().equals(u1.key)||IdCode.getText().equals(u2.key)
-                 ||IdCode.getText().equals(u3.key)||IdCode.getText().equals(u4.key)) {
+
+        if (IdCode.getText().equals(u.key) || IdCode.getText().equals(u1.key) || IdCode.getText().equals(u2.key)
+                || IdCode.getText().equals(u3.key) || IdCode.getText().equals(u4.key)) {
             return true;
         } else {
             return false;
