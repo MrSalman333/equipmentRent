@@ -22,7 +22,7 @@ public class User {
         this.level = level;
     }
     
-    public User(String key){
+    public User(int key){
         this.key=key;
     }
 }
