@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="Mine_bane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="764.0" prefWidth="1123.0" snapToPixel="false" style="-fx-background-color: #889229;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pcsp.HomeController">
+    <stylesheets>
+        <URL value="@home.css" />
+    </stylesheets>
+   <children>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" style="-fx-background-color: #800000; -fx-border-color: #FFDEAD; -fx-border-radius: 90; -fx-border-width: 5;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Pane layoutX="957.0" layoutY="200.0" prefHeight="488.0" prefWidth="200.0" style="-fx-background-color: #FFE4E1;" AnchorPane.bottomAnchor="80.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
+         <children>
+            <Button fx:id="Home" mnemonicParsing="false" onAction="#Home" prefHeight="90.0" prefWidth="200.0" style="-fx-background-color: #d3d3d3; -fx-border-color: BLACK; -fx-border-width: 2;" text="الرئيسية" />
+            <Button fx:id="SngIn" layoutY="394.0" mnemonicParsing="false" onAction="#SngIn" prefHeight="90.0" prefWidth="200.0" style="-fx-background-color: #C0C0C0; -fx-border-color: BLACK; -fx-border-width: 2;" text="الدخول للنظام" />
+            <Button fx:id="help_home" layoutY="297.0" mnemonicParsing="false" onAction="#help_home" prefHeight="90.0" prefWidth="200.0" style="-fx-background-color: #d3d3d3; -fx-border-color: BLACK; -fx-border-width: 2;" text="تعليمات" />
+            <Button fx:id="Delivery" layoutY="197.0" mnemonicParsing="false" onAction="#Delivery" prefHeight="90.0" prefWidth="200.0" style="-fx-background-color: #d3d3d3; -fx-border-width: 2; -fx-border-color: BLACK;" text="التسليم" />
+            <Button fx:id="Matephor" layoutY="97.0" mnemonicParsing="false" onAction="#Matephor" prefHeight="90.0" prefWidth="200.0" style="-fx-background-color: #d3d3d3; -fx-border-width: 2; -fx-border-color: BLACK;" text="الإستعارة" />
+         </children>
+      </Pane>
+      <Pane layoutY="685.0" prefHeight="80.0" style="-fx-background-color: #800000; -fx-border-width: 5; -fx-border-color: #FFDEAD;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Pane prefHeight="200.0" prefWidth="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@222.jpg" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+         </children>
+      </Pane>
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="200.0" text="نظام الإستعارة لنادي التصوير " textFill="#ffae00" textOverrun="CENTER_ELLIPSIS" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="220.0">
+         <font>
+            <Font size="50.0" />
+         </font>
+         <opaqueInsets>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+         </opaqueInsets>
+      </Label>
+      <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="50.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@com.jpg" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@3334.jpg" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane fx:id="show_pane" layoutY="203.0" onDragDetected="#show_pane" style="-fx-background-color: #FFE4E1;" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="200.0" />
+      <Label fx:id="PcLable" alignment="CENTER" contentDisplay="CENTER" onDragDetected="#PcLable" prefHeight="491.0" prefWidth="923.0" text="P C" textFill="#dab9c4" textOverrun="CENTER_ELLIPSIS" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="200.0">
+         <font>
+            <Font name="Algerian" size="350.0" />
+         </font>
+         <opaqueInsets>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+         </opaqueInsets>
+      </Label>
+      <Label fx:id="PcLable1" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" onDragDetected="#PcLable" prefHeight="80.0" prefWidth="923.0" text="\@ تم أنشاء هذا البرنامج من قبل نادي الحاسب الآلي لتنظيم آلية إستعارت المعدات لنادي التصوير بناءً على طلبهم" textFill="#ffae00" textOverrun="CENTER_ELLIPSIS" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="120.0">
+         <font>
+            <Font name="Algerian" size="16.0" />
+         </font>
+         <opaqueInsets>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+         </opaqueInsets>
+      </Label>
+   </children>
+</AnchorPane>

@@ -21,4 +21,8 @@ public class User {
         this.phone = phone;
         this.level = level;
     }
+    
+    public User(String key){
+        this.key=key;
+    }
 }
