@@ -33,7 +33,7 @@ public class EquipmentRent extends Application {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Hello World!");              
-                User u = User.creatUser("salman new key", 3704178, "05", 43);
+                User u = User.creatUser("salman new key", 11123, "05", 43);
             }
         });
         

@@ -79,7 +79,17 @@ public class ConnDB {
     }
 
     public boolean getData(User user) {
-        String query = "SELECT * FROM user WHERE keyId =" + user.key;
+        String query;
+        if(user.key != 0)
+            query = "SELECT * FROM user WHERE keyId =" + user.key;
+        else if(user.key != 0)
+            query = "SELECT * FROM user WHERE id =" + user.id;
+        else{
+            System.out.println("there is no key nore id");
+            return false;
+        }
+            
+
         try {
             rs = stat.executeQuery(query);
 
@@ -89,6 +99,7 @@ public class ConnDB {
                 user.name = rs.getString("name");
                 user.level = rs.getInt("level");
                 user.phone = rs.getString("phone");
+                user.key = rs.getLong("keyId");
                 return true;
             } else {
                 System.out.println("no data");
@@ -99,6 +110,8 @@ public class ConnDB {
             return false;
         }
     }
+    
+    
 
     private boolean insertData(User user) {
 
