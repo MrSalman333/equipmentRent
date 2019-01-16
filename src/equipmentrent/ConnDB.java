@@ -77,6 +77,18 @@ public class ConnDB {
 
 
     }
+    
+    public boolean insert(Rent r){
+        try {
+            stat.execute("INSERT INTO `rent`(`equId`, `userId`) VALUES"
+                    + " ("+ r.equId +","+ r.userId +")");
+            System.out.println("inserted");
+            return true;
+        } catch (Exception e) {
+            System.err.println("insertData Error " + e);
+            return false;
+        }
+    }
 
     public boolean getData(User user) {
         String query;
@@ -114,9 +126,9 @@ public class ConnDB {
     
 
     private boolean insertData(User user) {
-
         try {
-            stat.execute("INSERT INTO `user`(`keyId`, `jucId`, `name`, `level`, `phone`) VALUES ("+ user.key +","+ user.id +",'"+ user.name +"',"+ user.level +",'"+ user.phone +"')");
+            stat.execute("INSERT INTO `user`(`keyId`, `jucId`, `name`, `level`, `phone`) VALUES"
+                    + " ("+ user.key +","+ user.id +",'"+ user.name +"',"+ user.level +",'"+ user.phone +"')");
             System.out.println("inserted");
             return true;
         } catch (Exception e) {
@@ -124,4 +136,6 @@ public class ConnDB {
             return false;
         }
     }
+    
+
 }

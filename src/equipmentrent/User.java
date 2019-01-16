@@ -32,17 +32,16 @@ public class User {
 
     public static User creatUser(String name, long id, String phone, int level) {
         User u = new User(name, id, 0, phone, level);
-        if((new ConnDB().getData(u))){
+        if ((new ConnDB().getData(u))) {
             System.out.println("there is a user with this ID ERROR");
             return null;
         }
-        
-        
+
         System.out.println("crat user random key");
         ConnDB cn = new ConnDB();
         int key;
         String barrcode = null;
-        do {            
+        do {
             barrcode = "";
             while (barrcode.length() < 18) {
                 key = (int) (Math.random() * 999999);
@@ -51,16 +50,12 @@ public class User {
             barrcode = barrcode.substring(barrcode.length() - 18); //creat a random key  with length 12
             u.key = Long.parseLong(barrcode);
         } while (!cn.update(u));
-        
-        
-        
-        
         makebarckode(barrcode, u.id);
-        
+
         return u;
     }
-    
-    public static void makebarckode(String barrcode , long id){
+
+    private static void makebarckode(String barrcode, long id) {
         BarCode barcode = new BarCode();
         barcode.setCodeToEncode(barrcode);
         barcode.setSymbology(IBarCode.CODE128A);
@@ -74,10 +69,19 @@ public class User {
         barcode.setDisplayText(false);
         barcode.setFnc1(IBarCode.FNC1_NONE);
         try {
-            barcode.draw(id+".gif");
+            barcode.draw(id + ".gif");
         } catch (Exception e) {
             System.out.println("shit");
         }
+
+    }
+
+    public boolean rent(Equipments e) {
+        if (e.id == 0) {
+            System.out.println("no id in the equpmit object");
+            return false;
+        }
         
+        return (new ConnDB()).insert(new Rent(id, e.id)); //inserting into DB
     }
 }
