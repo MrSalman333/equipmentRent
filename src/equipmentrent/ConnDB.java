@@ -94,8 +94,8 @@ public class ConnDB {
         String query;
         if(user.key != 0)
             query = "SELECT * FROM user WHERE keyId =" + user.key;
-        else if(user.key != 0)
-            query = "SELECT * FROM user WHERE id =" + user.id;
+        else if(user.id != 0)
+            query = "SELECT * FROM user WHERE jucId =" + user.id;
         else{
             System.out.println("there is no key nore id");
             return false;

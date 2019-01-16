@@ -26,11 +26,11 @@ import javafx.scene.layout.AnchorPane;
  */
 public class MatephorController implements Initializable {
 
-    User u = new User("ALi", 33, 33, "966551138844", 1);
-    User u1 = new User("ALi", 34, 34, "966551138844", 1);
-    User u2 = new User("ALi", 35, 35, "966551138844", 1);
-    User u3 = new User("ALi", 36, 36, "966551138844", 1);
-    User u4 = new User("ALi", 37, 37, "966551138844", 1);
+    User u = new User("ALi", 33, "966551138844", 1);
+    User u1 = new User("ALi",  34, "966551138844", 1);
+    User u2 = new User("ALi",  35, "966551138844", 1);
+    User u3 = new User("ALi", 36, "966551138844", 1);
+    User u4 = new User("ALi", 37, "966551138844", 1);
 
     @FXML
     private AnchorPane Matephor;

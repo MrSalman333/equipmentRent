@@ -18,10 +18,10 @@ public class User {
     public long id, key;
     public int level;
 
-    public User(String name, long id, long key, String phone, int level) {
+    public User(String name, long id, String phone, int level) {
         this.name = name;
         this.id = id;
-        this.key = key;
+        this.key = 0;
         this.phone = phone;
         this.level = level;
     }
@@ -31,7 +31,7 @@ public class User {
     }
 
     public static User creatUser(String name, long id, String phone, int level) {
-        User u = new User(name, id, 0, phone, level);
+        User u = new User(name, id,  phone, level);
         if ((new ConnDB().getData(u))) {
             System.out.println("there is a user with this ID ERROR");
             return null;

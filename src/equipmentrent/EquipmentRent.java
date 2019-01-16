@@ -20,20 +20,22 @@ import javafx.stage.Stage;
  * @author MrS
  */
 public class EquipmentRent extends Application {
-    
-    private ConnDB con;
+
     @Override
     public void start(Stage primaryStage) {
         Button btn = new Button();
         btn.setText("Test The DataBase");
         
-        con = new ConnDB();
+   
 
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Hello World!");              
-                User u = User.creatUser("salman new key", 11123, "05", 43);
+                User u = User.creatUser("salman new key", 112123, "05", 43);
+                Equipments e = new Equipments(3, 32, "first Camera", "dsasac2fsa", true);
+                
+                u.rent(e);
             }
         });
         

@@ -30,11 +30,11 @@ public class Matephor_1Controller implements Initializable {
             Equipments c2 = new  Equipments(3, "333", "camera", "121", false);
             Equipments c3 = new  Equipments(4, "444", "camera", "121", true);
             Equipments c4 = new  Equipments(5, "444", "camera", "121", false);
-            User u = new User("ALi", 33, 33, "966551138844", 1);
-            User u1 = new User("ALi", 34, 34, "966551138844", 2);
-            User u2 = new User("ALi", 35, 35, "966551138844", 3);
-            User u3 = new User("ALi", 36, 36, "966551138844", 4);
-            User u4 = new User("ALi", 37, 37, "966551138844", 5);
+            User u = new User("ALi",  33, "966551138844", 1);
+            User u1 = new User("ALi", 34, "966551138844", 2);
+            User u2 = new User("ALi", 35, "966551138844", 3);
+            User u3 = new User("ALi", 36, "966551138844", 4);
+            User u4 = new User("ALi", 37, "966551138844", 5);
               
     @FXML
     private Button Next_Matephor_2;
