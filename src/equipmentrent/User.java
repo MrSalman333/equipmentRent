@@ -31,7 +31,7 @@ public class User {
     }
 
     public static User creatUser(String name, long id, String phone, int level) {
-        User u = new User(name, id,  phone, level);
+        User u = new User(name, id, phone, level);
         if ((new ConnDB().getData(u))) {
             System.out.println("there is a user with this ID ERROR");
             return null;
@@ -81,7 +81,21 @@ public class User {
             System.out.println("no id in the equpmit object");
             return false;
         }
+
+        return (new ConnDB()).update(new Rent(id, e.id)); //inserting into DB
+    }
+
+    public boolean returnRent(Equipments e) {
+        if (e.id == 0) {
+            System.out.println("no id in the equpmit object");
+            return false;
+        }
+        ConnDB db =  new ConnDB();
+        Rent cloaseRent = new Rent(id, e.id);
+        db.getOpenRent(cloaseRent);
+        cloaseRent.checkIn = 5;
+        db.update(cloaseRent);
         
-        return (new ConnDB()).insert(new Rent(id, e.id)); //inserting into DB
+        return db.update(cloaseRent); //updating into DB
     }
 }

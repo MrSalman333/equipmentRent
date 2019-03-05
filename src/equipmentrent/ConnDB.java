@@ -44,15 +44,15 @@ public class ConnDB {
 
             if (rs.first()) {//cheack if there is any data returned from the DataBase
                 System.out.println("The User alrady exists");
-                
+
                 if (user.key == rs.getInt("keyId") //cheack if all the data from the caller is the same as in the DataBase
-                    && user.id == rs.getInt("jucId")
-                    && user.level == rs.getInt("level")
-                    && user.name.equals(rs.getString("name"))
-                    && user.phone.equals(rs.getString("phone"))) {
+                        && user.id == rs.getInt("jucId")
+                        && user.level == rs.getInt("level")
+                        && user.name.equals(rs.getString("name"))
+                        && user.phone.equals(rs.getString("phone"))) {
                     System.out.print(" and there are no defrinces!");
                     return false;
-                    
+
                 } else {
                     System.out.println(" and there are some difrncess");
                     try {
@@ -63,7 +63,7 @@ public class ConnDB {
                         System.out.println("error while updating" + sQLException.getMessage());
                         return false;
                     }
-                   
+
                 }
             } else { //the user is not in the DataBase
                 System.out.println("Trying to insert");
@@ -75,32 +75,58 @@ public class ConnDB {
             return false;
         }
 
-
     }
-    
-    public boolean insert(Rent r){
+
+    public boolean update(Rent r) {
+        String query = "SELECT * FROM rent WHERE id =" + r.id; //searsh from data with this ID
         try {
-            stat.execute("INSERT INTO `rent`(`equId`, `userId`) VALUES"
-                    + " ("+ r.equId +","+ r.userId +")");
-            System.out.println("inserted");
-            return true;
-        } catch (Exception e) {
-            System.err.println("insertData Error " + e);
+            rs = stat.executeQuery(query);
+
+            if (rs.first()) {//cheack if there is any data returned from the DataBase
+                System.out.println("The Rent alrady exists");
+
+                if (r.id == rs.getInt("id") //cheack if all the data from the caller is the same as in the DataBase
+                        && r.checkIn == rs.getInt("checkIn")
+                        && r.equId == rs.getInt("equId")
+                        && r.userId == rs.getBigDecimal("userId").longValue()) {
+                    System.out.print(" and there are no defrinces!");
+                    return false;
+                } else {
+                    System.out.println(" and there are some difrncess");
+                    try {
+                        if(stat.execute("UPDATE rent SET open=0 WHERE id="+r.id ))
+                            System.out.println("false");
+                        //updated the data in the DataBase
+                        return true;
+                    } catch (SQLException sQLException) {
+                        System.out.println("error while updating" + sQLException.getMessage());
+                        return false;
+                    }
+                }
+            } else { //the user is not in the DataBase
+                System.out.println("Trying to insert");
+                stat.execute("INSERT INTO `rent`(`id`, `equId`, `userId`) VALUES"
+                        + " (" + r.id + "," + r.equId + "," + r.userId + ")");
+                System.out.println("inserted");
+                return true;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("error while cheacking the data" + ex.getMessage());
             return false;
         }
     }
 
     public boolean getData(User user) {
         String query;
-        if(user.key != 0)
+        if (user.key != 0) {
             query = "SELECT * FROM user WHERE keyId =" + user.key;
-        else if(user.id != 0)
+        } else if (user.id != 0) {
             query = "SELECT * FROM user WHERE jucId =" + user.id;
-        else{
+        } else {
             System.out.println("there is no key nore id");
             return false;
         }
-            
 
         try {
             rs = stat.executeQuery(query);
@@ -122,13 +148,40 @@ public class ConnDB {
             return false;
         }
     }
-    
-    
+
+    public boolean getOpenRent(Rent r) {
+        String query;
+        query = "SELECT * FROM rent WHERE (equId =" + r.equId + " AND userId=" + r.userId + ")";
+
+        try {
+            rs = stat.executeQuery(query);
+            while (rs.next()) {
+                System.out.println("while");
+                if(rs.getInt("open") == 1){
+                System.out.println("the rent is there");
+                r.id = rs.getInt("id");
+                r.checkOut = rs.getInt("checkOut");
+                r.equId = rs.getInt("equId");
+                r.userId = rs.getBigDecimal("userId").longValue();
+                return true;}
+                else{
+                    System.out.println("checkin = "+rs.getInt("checkIn") );
+                }
+            }
+
+            System.out.println("no open Rent");
+            return false;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
 
     private boolean insertData(User user) {
         try {
             stat.execute("INSERT INTO `user`(`keyId`, `jucId`, `name`, `level`, `phone`) VALUES"
-                    + " ("+ user.key +","+ user.id +",'"+ user.name +"',"+ user.level +",'"+ user.phone +"')");
+                    + " (" + user.key + "," + user.id + ",'" + user.name + "'," + user.level + ",'" + user.phone + "')");
             System.out.println("inserted");
             return true;
         } catch (Exception e) {
@@ -136,6 +189,5 @@ public class ConnDB {
             return false;
         }
     }
-    
 
 }

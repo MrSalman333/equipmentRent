@@ -5,6 +5,8 @@
  */
 package equipmentrent;
 
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -32,10 +34,16 @@ public class EquipmentRent extends Application {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Hello World!");              
-                User u = User.creatUser("salman new key", 112123, "05", 43);
+                Random r = new Random();
+                User u = User.creatUser("salman new key", r.nextLong() ,"05", 43);
                 Equipments e = new Equipments(3, 32, "first Camera", "dsasac2fsa", true);
-                
                 u.rent(e);
+                try {
+                    TimeUnit.SECONDS.sleep(10);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(EquipmentRent.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                u.returnRent(e);
             }
         });
         

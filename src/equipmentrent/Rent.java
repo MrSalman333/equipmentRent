@@ -11,11 +11,13 @@ package equipmentrent;
  */
 public class Rent {
     long checkOut , checkIn ,userId;
-    int equId;
+    int equId , id;
 
     public Rent(long userId, int equId) {
         this.userId = userId;
         this.equId = equId;
+        this.id = 0;
+        checkIn = checkOut  = 0;
     }
     
     
