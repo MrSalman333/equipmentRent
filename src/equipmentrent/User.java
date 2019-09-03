@@ -26,8 +26,19 @@ public class User {
         this.level = level;
     }
 
-    public User(long key) {
+    private User(long key) {
         this.key = key;
+    }
+    
+    public static User getUser(String key){
+        User user = new User(Long.parseLong(key));
+        
+        if ((new ConnDB().getData(user))) {
+            System.out.println("there is a user with this ID ERROR");
+        }else{
+            System.out.println("no such user \"key error\" ");
+        }
+        return user;
     }
 
     public static User creatUser(String name, long id, String phone, int level) {
