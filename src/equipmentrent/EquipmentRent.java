@@ -27,7 +27,7 @@ public class EquipmentRent extends Application {
     public void start(Stage primaryStage) {
         Button btn = new Button();
         btn.setText("Test The DataBase");
-        
+        User.creatUser("سلمان الراجحي", 1100, "0537243511", 1);
    
 
         btn.setOnAction(new EventHandler<ActionEvent>() {

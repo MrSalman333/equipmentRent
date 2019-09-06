@@ -11,6 +11,7 @@ import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -94,8 +95,9 @@ public class ConnDB {
                 } else {
                     System.out.println(" and there are some difrncess");
                     try {
-                        if(stat.execute("UPDATE rent SET open=0 WHERE id="+r.id ))
+                        if (stat.execute("UPDATE rent SET open=0 WHERE id=" + r.id)) {
                             System.out.println("false");
+                        }
                         //updated the data in the DataBase
                         return true;
                     } catch (SQLException sQLException) {
@@ -149,6 +151,42 @@ public class ConnDB {
         }
     }
 
+    public boolean getRentedEquipments(User user) {
+        Equipments[] equipments = new Equipments[10];
+
+        String query;
+        if (user.id != 0) {
+            query = "SELECT * FROM equipmentrent WHERE rentedBy =" + user.id;
+        } else {
+            System.out.println("there is no id");
+            return false;
+        }
+
+        try {
+            rs = stat.executeQuery(query);
+            ArrayList<Equipments> equipmentsArray = new ArrayList<>();
+
+            while (rs.next()) {
+                System.out.println("there are some Equipments");
+                Equipments equipment = new Equipments(
+                        rs.getInt("level"),
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("model"),
+                        false);
+
+                equipmentsArray.add(equipment);
+            }
+            user.equipments = equipmentsArray.toArray(new Equipments[equipmentsArray.size()]);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+        return true;
+    }
+
     public boolean getOpenRent(Rent r) {
         String query;
         query = "SELECT * FROM rent WHERE (equId =" + r.equId + " AND userId=" + r.userId + ")";
@@ -157,15 +195,15 @@ public class ConnDB {
             rs = stat.executeQuery(query);
             while (rs.next()) {
                 System.out.println("while");
-                if(rs.getInt("open") == 1){
-                System.out.println("the rent is there");
-                r.id = rs.getInt("id");
-                r.checkOut = rs.getInt("checkOut");
-                r.equId = rs.getInt("equId");
-                r.userId = rs.getBigDecimal("userId").longValue();
-                return true;}
-                else{
-                    System.out.println("checkin = "+rs.getInt("checkIn") );
+                if (rs.getInt("open") == 1) {
+                    System.out.println("the rent is there");
+                    r.id = rs.getInt("id");
+                    r.checkOut = rs.getInt("checkOut");
+                    r.equId = rs.getInt("equId");
+                    r.userId = rs.getBigDecimal("userId").longValue();
+                    return true;
+                } else {
+                    System.out.println("checkin = " + rs.getInt("checkIn"));
                 }
             }
 

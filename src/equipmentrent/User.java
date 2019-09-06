@@ -17,8 +17,10 @@ public class User {
     public String name, phone;
     public long id, key;
     public int level;
+    public boolean ready;
+    public Equipments[] equipments;
 
-    public User(String name, long id, String phone, int level) {
+    private User(String name, long id, String phone, int level) {
         this.name = name;
         this.id = id;
         this.key = 0;
@@ -28,16 +30,24 @@ public class User {
 
     private User(long key) {
         this.key = key;
+        ready = false;
     }
     
     public static User getUser(String key){
         User user = new User(Long.parseLong(key));
         
         if ((new ConnDB().getData(user))) {
-            System.out.println("there is a user with this ID ERROR");
+            System.out.println("there is a user with this ID ");
+            user.ready = true;
         }else{
             System.out.println("no such user \"key error\" ");
         }
+        
+        if ((new ConnDB().getRentedEquipments(user))) {
+            System.out.println("there are some equpmints ");
+        }else{
+            System.out.println("no equpments ");
+        }    
         return user;
     }
 
@@ -86,7 +96,7 @@ public class User {
         }
 
     }
-
+    
     public boolean rent(Equipments e) {
         if (e.id == 0) {
             System.out.println("no id in the equpmit object");

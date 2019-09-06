@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="EquipmentRent.jar" size="22842" download="eager" />
+    <jar href="EquipmentRent.jar" size="24916" download="eager" />
     <jar href="lib\com.keepautomation.barcode.jar" size="229855" download="eager" />
     <jar href="lib\mysql-connector-java-5.1.23-bin.jar" size="834126" download="eager" />
   </resources>
