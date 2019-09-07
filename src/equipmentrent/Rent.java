@@ -5,19 +5,22 @@
  */
 package equipmentrent;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author MrS
  */
 public class Rent {
-    long checkOut , checkIn ,userId;
-    int equId , id;
+    public Timestamp checkOut , checkIn ;
+    public int equId , id;
+    public long userId;
 
     public Rent(long userId, int equId) {
         this.userId = userId;
         this.equId = equId;
         this.id = 0;
-        checkIn = checkOut  = 0;
+        checkIn = checkOut  = new Timestamp(0);
     }
     
     

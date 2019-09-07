@@ -7,6 +7,7 @@ package equipmentrent;
 
 import com.keepautomation.barcode.BarCode;
 import com.keepautomation.barcode.IBarCode;
+import java.sql.Timestamp;
 
 /**
  *
@@ -18,7 +19,7 @@ public class User {
     public long id, key;
     public int level;
     public boolean ready;
-    public Equipments[] equipments;
+    public Equipment[] equipments;
 
     private User(String name, long id, String phone, int level) {
         this.name = name;
@@ -71,12 +72,12 @@ public class User {
             barrcode = barrcode.substring(barrcode.length() - 18); //creat a random key  with length 12
             u.key = Long.parseLong(barrcode);
         } while (!cn.update(u));
-        makebarckode(barrcode, u.id);
+        makeBarCode(barrcode, u.id);
 
         return u;
     }
 
-    private static void makebarckode(String barrcode, long id) {
+    private static void makeBarCode(String barrcode, long id) {
         BarCode barcode = new BarCode();
         barcode.setCodeToEncode(barrcode);
         barcode.setSymbology(IBarCode.CODE128A);
@@ -97,7 +98,7 @@ public class User {
 
     }
     
-    public boolean rent(Equipments e) {
+    public boolean rent(Equipment e) {
         if (e.id == 0) {
             System.out.println("no id in the equpmit object");
             return false;
@@ -106,7 +107,7 @@ public class User {
         return (new ConnDB()).update(new Rent(id, e.id)); //inserting into DB
     }
 
-    public boolean returnRent(Equipments e) {
+    public boolean returnRent(Equipment e) {
         if (e.id == 0) {
             System.out.println("no id in the equpmit object");
             return false;
@@ -114,7 +115,7 @@ public class User {
         ConnDB db =  new ConnDB();
         Rent cloaseRent = new Rent(id, e.id);
         db.getOpenRent(cloaseRent);
-        cloaseRent.checkIn = 5;
+        cloaseRent.checkIn = new Timestamp(System.currentTimeMillis());
         db.update(cloaseRent);
         
         return db.update(cloaseRent); //updating into DB

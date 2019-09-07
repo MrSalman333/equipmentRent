@@ -1,5 +1,6 @@
 
-import equipmentrent.Equipments;
+import equipmentrent.Damage;
+import equipmentrent.Equipment;
 import equipmentrent.User;
 import java.awt.Component;
 import javax.swing.DefaultListModel;
@@ -21,7 +22,7 @@ public class ReturnJPanel extends javax.swing.JPanel {
      * Creates new form ReturnJPanel
      */
     User user;
-    Equipments[] equipments;
+    Equipment[] equipments;
 
     public ReturnJPanel(User passedUser) {
         initComponents();
@@ -31,8 +32,8 @@ public class ReturnJPanel extends javax.swing.JPanel {
             System.out.println(user.equipments[i].name);
             equipmentsNames[i] = user.equipments[i].name;
         }
-        
-        equipmentsList.setModel(
+
+        damageList.setModel(
                 new javax.swing.AbstractListModel<String>() {
             String[] strings = equipmentsNames;
 
@@ -47,7 +48,7 @@ public class ReturnJPanel extends javax.swing.JPanel {
             }
         }
         );
-        
+
     }
 
     /**
@@ -60,7 +61,7 @@ public class ReturnJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        equipmentsList = new javax.swing.JList<>();
+        damageList = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -69,21 +70,27 @@ public class ReturnJPanel extends javax.swing.JPanel {
         modelLabel = new javax.swing.JLabel();
         idLabel = new javax.swing.JLabel();
         levelLabel = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        equipmentsList1 = new javax.swing.JList<>();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        damgeTextArea = new javax.swing.JTextArea();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setMinimumSize(new java.awt.Dimension(100, 100));
 
-        equipmentsList.setModel(new javax.swing.AbstractListModel<String>() {
+        damageList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        equipmentsList.addMouseListener(new java.awt.event.MouseAdapter() {
+        damageList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                equipmentsListMouseClicked(evt);
+                damageListMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(equipmentsList);
+        jScrollPane1.setViewportView(damageList);
 
         jLabel1.setFont(new java.awt.Font("Traditional Arabic", 1, 24)); // NOI18N
         jLabel1.setText("الموديل");
@@ -105,12 +112,43 @@ public class ReturnJPanel extends javax.swing.JPanel {
 
         levelLabel.setFont(new java.awt.Font("Traditional Arabic", 1, 24)); // NOI18N
 
+        equipmentsList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        equipmentsList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                equipmentsList1MouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(equipmentsList1);
+
+        jLabel5.setFont(new java.awt.Font("Traditional Arabic", 1, 24)); // NOI18N
+        jLabel5.setText("صورة:");
+
+        jLabel6.setFont(new java.awt.Font("Traditional Arabic", 1, 24)); // NOI18N
+        jLabel6.setText("وصف الضرر");
+
+        damgeTextArea.setColumns(20);
+        damgeTextArea.setRows(5);
+        jScrollPane3.setViewportView(damgeTextArea);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(1252, Short.MAX_VALUE)
+                .addContainerGap(599, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(40, 40, 40)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(modelLabel, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(nameLabel, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -122,20 +160,19 @@ public class ReturnJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(40, 40, 40)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(nameLabel)
                                 .addGap(40, 40, 40)
@@ -151,29 +188,75 @@ public class ReturnJPanel extends javax.swing.JPanel {
                                 .addGap(40, 40, 40)
                                 .addComponent(jLabel4)
                                 .addGap(40, 40, 40)
-                                .addComponent(jLabel3)))))
+                                .addComponent(jLabel3)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(73, 73, 73)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addComponent(jLabel5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void equipmentsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_equipmentsListMouseClicked
-        Equipments equipment = user.equipments[equipmentsList.getSelectedIndex()];
+    private void damageListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_damageListMouseClicked
+        Equipment equipment = user.equipments[equipmentsList1.getSelectedIndex()];
+        Damage damge = equipment.damges[damageList.getSelectedIndex()];
+
+        damgeTextArea.setText(damge.description);
         
+    }//GEN-LAST:event_damageListMouseClicked
+
+    private void equipmentsList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_equipmentsList1MouseClicked
+        Equipment equipment = user.equipments[equipmentsList1.getSelectedIndex()];
+
         nameLabel.setText(equipment.name);
         modelLabel.setText(equipment.model);
-        levelLabel.setText(""+equipment.level);
-        idLabel.setText(""+equipment.id);
-    }//GEN-LAST:event_equipmentsListMouseClicked
+        levelLabel.setText("" + equipment.level);
+        idLabel.setText("" + equipment.id);
+
+        String[] damgeNames = new String[user.equipments.length];
+        for (int i = 0; i < user.equipments.length; i++) {
+            System.out.println(user.equipments[i].name);
+            damgeNames[i] = "الضرر " + i;
+        }
+
+        damageList.setModel(
+                new javax.swing.AbstractListModel<String>() {
+            String[] strings = damgeNames;
+
+            @Override
+            public int getSize() {
+                return strings.length;
+            }
+
+            @Override
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        }
+        );
+
+    }//GEN-LAST:event_equipmentsList1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> equipmentsList;
+    private javax.swing.JList<String> damageList;
+    private javax.swing.JTextArea damgeTextArea;
+    private javax.swing.JList<String> equipmentsList1;
     private javax.swing.JLabel idLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel levelLabel;
     private javax.swing.JLabel modelLabel;
     private javax.swing.JLabel nameLabel;

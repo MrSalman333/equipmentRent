@@ -26,13 +26,24 @@ public class ConnDB {
     private ResultSet rs;
 
     public ConnDB() {
+
         try {
-            //Class.forName("com.mysql.cj.jdbc.Driver");
-
+            
+            try {
+                if(con != null)
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ConnDB.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //Class.forName("com.mysql.jdbc.Driver").newInstance();
+            //if (con == null || con.isClosed()) {
             con = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
+            //}
+            //if (stat == null || stat.isClosed()) {
             stat = con.createStatement();
+            //}
 
-            System.out.println("database DONE!!!!");
+            //System.out.println("database DONE!!!!");
         } catch (Exception e) {
             System.err.println("myError" + e);
         }
@@ -87,7 +98,7 @@ public class ConnDB {
                 System.out.println("The Rent alrady exists");
 
                 if (r.id == rs.getInt("id") //cheack if all the data from the caller is the same as in the DataBase
-                        && r.checkIn == rs.getInt("checkIn")
+                        && r.checkIn.equals(rs.getTimestamp("checkIn")) 
                         && r.equId == rs.getInt("equId")
                         && r.userId == rs.getBigDecimal("userId").longValue()) {
                     System.out.print(" and there are no defrinces!");
@@ -148,11 +159,79 @@ public class ConnDB {
         } catch (SQLException ex) {
             Logger.getLogger(ConnDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        } 
+    }
+
+    public boolean getData(Equipment e) {
+        String query;
+        if (e.id != 0) {
+            query = "SELECT * FROM equipmentrent WHERE id =" + e.id;
+        } else {
+            System.out.println("no such equipment \"id error\" ");
+            return false;
+        }
+
+        try {
+            rs = stat.executeQuery(query);
+
+            if (rs.first()) {
+                System.out.println("the equipment is there");
+                e.name = rs.getString("name");
+                e.level = rs.getInt("level");
+                e.model = rs.getString("model");
+                e.available = rs.getInt("available") == 1;
+                e.damges = new ConnDB().getDamges(e.id);
+
+                return true;
+            } else {
+                System.out.println("no data");
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnDB.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
 
+    public Damage[] getDamges(int id) {
+        String query;
+        Damage[] damges;
+        if (id != 0) {
+            query = "SELECT * FROM damage WHERE equId =" + id;
+        } else {
+            System.out.println("there is no id fo equ");
+            return null;
+        }
+
+        try {
+            rs = stat.executeQuery(query);
+            ArrayList<Damage> damgesArray = new ArrayList<>();
+
+            while (rs.next()) {
+                System.out.println("there are some damges");
+                Damage damage = new Damage(
+                        rs.getInt("id"),
+                        rs.getInt("equId"),
+                        rs.getInt("userId"),
+                        rs.getInt("rentId"),
+                        rs.getString("description"),
+                        rs.getTimestamp("time"));
+
+                damgesArray.add(damage);
+            }
+            damges = damgesArray.toArray(new Damage[damgesArray.size()]);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnDB.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+        return damges;
+    }
+
     public boolean getRentedEquipments(User user) {
-        Equipments[] equipments = new Equipments[10];
 
         String query;
         if (user.id != 0) {
@@ -164,11 +243,11 @@ public class ConnDB {
 
         try {
             rs = stat.executeQuery(query);
-            ArrayList<Equipments> equipmentsArray = new ArrayList<>();
+            ArrayList<Equipment> equipmentsArray = new ArrayList<>();
 
             while (rs.next()) {
                 System.out.println("there are some Equipments");
-                Equipments equipment = new Equipments(
+                Equipment equipment = new Equipment(
                         rs.getInt("level"),
                         rs.getInt("id"),
                         rs.getString("name"),
@@ -177,10 +256,11 @@ public class ConnDB {
 
                 equipmentsArray.add(equipment);
             }
-            user.equipments = equipmentsArray.toArray(new Equipments[equipmentsArray.size()]);
+            user.equipments = equipmentsArray.toArray(new Equipment[equipmentsArray.size()]);
 
         } catch (SQLException ex) {
-            Logger.getLogger(ConnDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnDB.class
+                    .getName()).log(Level.SEVERE, null, ex);
             return false;
         }
 
@@ -194,16 +274,16 @@ public class ConnDB {
         try {
             rs = stat.executeQuery(query);
             while (rs.next()) {
-                System.out.println("while");
+                //System.out.println("while");
                 if (rs.getInt("open") == 1) {
                     System.out.println("the rent is there");
                     r.id = rs.getInt("id");
-                    r.checkOut = rs.getInt("checkOut");
+                    r.checkOut = rs.getTimestamp("checkOut");
                     r.equId = rs.getInt("equId");
                     r.userId = rs.getBigDecimal("userId").longValue();
                     return true;
                 } else {
-                    System.out.println("checkin = " + rs.getInt("checkIn"));
+                    //System.out.println("checkin = " + rs.getTimestamp("checkIn").toString());
                 }
             }
 
@@ -211,7 +291,8 @@ public class ConnDB {
             return false;
 
         } catch (SQLException ex) {
-            Logger.getLogger(ConnDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnDB.class
+                    .getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
