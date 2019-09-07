@@ -10,7 +10,7 @@ package equipmentrent;
  * @author Salman
  */
 public class Test {
-    
+
     public static void main(String[] args) throws InterruptedException {
         System.out.println("!-------------START TEST--------------!");
         User user = User.getUser("510445228399963851");
@@ -25,12 +25,22 @@ public class Test {
         } else {
             System.out.println("user.rent dosn't work!");
         }
+        System.out.println("");
+        System.out.println("!-------------RENT--------------!");
         Thread.sleep(1000);
         if (user.returnRent(equpment)) {
             System.out.println("user.returnRent works!");
         } else {
             System.out.println("user.returnRent dosn't work!");
         }
+        System.out.println("");
+        System.out.println("!-------------RETURN RENT--------------!");
+        
+        user.rent(equpment);
+        user.returnRent(equpment, "SOME DAMGE");
+        System.out.println("");
+        System.out.println("!-------------RENT AND RETUNR WITH DAMEGE--------------!");
+
     }
-    
+
 }

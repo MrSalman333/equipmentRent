@@ -28,20 +28,11 @@ public class ConnDB {
     public ConnDB() {
 
         try {
-            
-            try {
-                if(con != null)
-                con.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(ConnDB.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            //Class.forName("com.mysql.jdbc.Driver").newInstance();
-            //if (con == null || con.isClosed()) {
+
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+
             con = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
-            //}
-            //if (stat == null || stat.isClosed()) {
             stat = con.createStatement();
-            //}
 
             //System.out.println("database DONE!!!!");
         } catch (Exception e) {
@@ -97,18 +88,12 @@ public class ConnDB {
             if (rs.first()) {//cheack if there is any data returned from the DataBase
                 System.out.println("The Rent alrady exists");
 
-                if (r.id == rs.getInt("id") //cheack if all the data from the caller is the same as in the DataBase
-                        && r.checkIn.equals(rs.getTimestamp("checkIn")) 
-                        && r.equId == rs.getInt("equId")
-                        && r.userId == rs.getBigDecimal("userId").longValue()) {
-                    System.out.print(" and there are no defrinces!");
+                if (0 == rs.getInt("open")) {
+                    System.out.print(" and it's alrady closed!");
                     return false;
                 } else {
-                    System.out.println(" and there are some difrncess");
                     try {
-                        if (stat.execute("UPDATE rent SET open=0 WHERE id=" + r.id)) {
-                            System.out.println("false");
-                        }
+                        stat.executeUpdate("UPDATE rent SET open=0 WHERE id=" + r.id);
                         //updated the data in the DataBase
                         return true;
                     } catch (SQLException sQLException) {
@@ -116,7 +101,7 @@ public class ConnDB {
                         return false;
                     }
                 }
-            } else { //the user is not in the DataBase
+            } else { //the rent is not in the DataBase
                 System.out.println("Trying to insert");
                 stat.execute("INSERT INTO `rent`(`id`, `equId`, `userId`) VALUES"
                         + " (" + r.id + "," + r.equId + "," + r.userId + ")");
@@ -128,6 +113,52 @@ public class ConnDB {
             System.out.println("error while cheacking the data" + ex.getMessage());
             return false;
         }
+    }
+
+    public boolean addDamge(Rent r, Damage d) {
+        try {
+            String query;
+            if (r.id != 0) {
+                query = "SELECT * FROM rent WHERE id =" + r.id;
+            } else {
+                System.out.println("no such rent \"id error\" ");
+                return false;
+            }
+            System.out.println("Trying to insert");
+            String q = "INSERT INTO `damage`(`description`,`equId`,`userId`,`rentId`) "
+                    + "VALUES (\""+d.description+"\","+d.equId+","+d.userId+","+d.rentId+")";
+            stat.execute(q);
+            System.out.println("inserted");
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public boolean equpmentRentedBy(long userId, int equId) {
+        String query = "SELECT * FROM equipmentrent WHERE id =" + equId; //searsh from data with this ID
+        try {
+            rs = stat.executeQuery(query);
+
+            if (rs.first()) {//cheack if there is any data returned from the DataBase
+                System.out.println("The equpment exists");
+                if (userId != 0) {
+                    stat.executeUpdate("UPDATE equipmentrent SET rentedBy=" + userId + ", available=1 WHERE id=" + equId);
+                } //updated the data in the DataBase
+                else {
+                    System.out.println("id is 0");
+                    stat.executeUpdate("UPDATE equipmentrent SET rentedBy=NULL WHERE id=" + equId);
+                }
+
+                return true;
+            }
+        } catch (SQLException sQLException) {
+            System.out.println("error while updating" + sQLException.getMessage());
+            return false;
+        }
+        return true;
     }
 
     public boolean getData(User user) {
@@ -159,7 +190,7 @@ public class ConnDB {
         } catch (SQLException ex) {
             Logger.getLogger(ConnDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        } 
+        }
     }
 
     public boolean getData(Equipment e) {
@@ -213,10 +244,9 @@ public class ConnDB {
                 Damage damage = new Damage(
                         rs.getInt("id"),
                         rs.getInt("equId"),
-                        rs.getInt("userId"),
+                        rs.getBigDecimal("userId").longValue(),
                         rs.getInt("rentId"),
-                        rs.getString("description"),
-                        rs.getTimestamp("time"));
+                        rs.getString("description"));
 
                 damgesArray.add(damage);
             }
@@ -269,22 +299,20 @@ public class ConnDB {
 
     public boolean getOpenRent(Rent r) {
         String query;
-        query = "SELECT * FROM rent WHERE (equId =" + r.equId + " AND userId=" + r.userId + ")";
+        query = "SELECT * FROM rent WHERE (equId =" + r.equId + " AND userId=" + r.userId + " AND open=1)";
 
         try {
             rs = stat.executeQuery(query);
             while (rs.next()) {
                 //System.out.println("while");
-                if (rs.getInt("open") == 1) {
+                
                     System.out.println("the rent is there");
                     r.id = rs.getInt("id");
                     r.checkOut = rs.getTimestamp("checkOut");
                     r.equId = rs.getInt("equId");
                     r.userId = rs.getBigDecimal("userId").longValue();
                     return true;
-                } else {
-                    //System.out.println("checkin = " + rs.getTimestamp("checkIn").toString());
-                }
+                 
             }
 
             System.out.println("no open Rent");

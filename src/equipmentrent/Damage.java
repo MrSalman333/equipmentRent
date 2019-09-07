@@ -13,19 +13,27 @@ import java.sql.Timestamp;
  */
 public class Damage {
     
-    public int id , equId   , userId , rentId ;
+    public int id , equId    , rentId ;
     public String description,imgPath;
     public java.sql.Timestamp timeStamp;
     private final static String THEPATH = "some path";
+    public long userId;
 
-    public Damage(int id, int equId, int userId, int rentId, String description, Timestamp timeStamp) {
+    public Damage(int id, int equId, long userId, int rentId, String description) {
         this.id = id;
         this.equId = equId;
         imgPath = THEPATH+id;
         this.userId = userId;
         this.rentId = rentId;
         this.description = description;
-        this.timeStamp = timeStamp;
+    }
+    public Damage( int equId, long userId, int rentId, String description) {
+        
+        this.equId = equId;
+        imgPath = THEPATH+id;
+        this.userId = userId;
+        this.rentId = rentId;
+        this.description = description;
     }
     
     

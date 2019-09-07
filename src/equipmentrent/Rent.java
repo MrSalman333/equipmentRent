@@ -13,14 +13,20 @@ import java.sql.Timestamp;
  */
 public class Rent {
     public Timestamp checkOut , checkIn ;
-    public int equId , id;
+    public int equId , id,open;
     public long userId;
+    
 
     public Rent(long userId, int equId) {
         this.userId = userId;
         this.equId = equId;
         this.id = 0;
+        open = 0;
         checkIn = checkOut  = new Timestamp(0);
+    }
+    
+    public Damage getDamage(String d){
+        return new Damage(equId, userId, id, d);
     }
     
     

@@ -103,8 +103,9 @@ public class User {
             System.out.println("no id in the equpmit object");
             return false;
         }
-
-        return (new ConnDB()).update(new Rent(id, e.id)); //inserting into DB
+        
+        return (new ConnDB()).update(new Rent(id, e.id))&& 
+               (new ConnDB().equpmentRentedBy(id,e.id)) ; //inserting into DB
     }
 
     public boolean returnRent(Equipment e) {
@@ -115,9 +116,22 @@ public class User {
         ConnDB db =  new ConnDB();
         Rent cloaseRent = new Rent(id, e.id);
         db.getOpenRent(cloaseRent);
-        cloaseRent.checkIn = new Timestamp(System.currentTimeMillis());
-        db.update(cloaseRent);
+        //cloaseRent.checkIn = new Timestamp(System.currentTimeMillis()); done in DB
+        return db.update(cloaseRent) && db.equpmentRentedBy(0, e.id); //updating into DB
+    }
+    
+    public boolean returnRent(Equipment e,String des) {
+        if (e.id == 0) {
+            System.out.println("no id in the equpmit object");
+            return false;
+        }
+        ConnDB db =  new ConnDB();
+        Rent cloaseRent = new Rent(id, e.id);
+        db.getOpenRent(cloaseRent);
         
-        return db.update(cloaseRent); //updating into DB
+        Damage d = new Damage(e.id, id, cloaseRent.id, des);
+        
+        //cloaseRent.checkIn = new Timestamp(System.currentTimeMillis()); done in DB
+        return db.addDamge(cloaseRent, d)&&db.update(cloaseRent) && db.equpmentRentedBy(0, e.id); //updating into DB
     }
 }
