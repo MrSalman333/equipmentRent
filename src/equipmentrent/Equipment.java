@@ -19,7 +19,10 @@ public class Equipment {
         this.name = name;
         this.model = model;
         this.available = available;
-        this.rentedBy = rentedBy;
+        if("".equals(rentedBy))
+            this.rentedBy = null;
+        else
+            this.rentedBy = rentedBy;
         
         damges = new ConnDB().getDamges(id); 
     }

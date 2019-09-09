@@ -19,7 +19,7 @@ public class User {
     public long id, key;
     public int level;
     public boolean ready;
-    public Equipment[] equipments;
+    public Equipment[] equipments = null;
 
     private User(String name, long id, String phone, int level) {
         this.name = name;

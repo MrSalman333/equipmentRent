@@ -1,11 +1,15 @@
 
+import equipmentrent.ConnDB;
 import equipmentrent.Damage;
 import equipmentrent.Equipment;
 import equipmentrent.User;
 import java.awt.Component;
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,24 +20,26 @@ import javax.swing.ListSelectionModel;
  *
  * @author Salman
  */
-public class ReturnJPanel extends javax.swing.JPanel {
+public class RentJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form ReturnJPanel
+     * Creates new form RentJPanel
      */
     User user;
-    Equipment[] equipments;
+    Equipment[] avalibleEquipments;
 
-    public ReturnJPanel(User passedUser) {
+    public RentJPanel(User passedUser) {
         initComponents();
         user = passedUser;
-        String[] equipmentsNames = new String[user.equipments.length];
-        for (int i = 0; i < user.equipments.length; i++) {
-            System.out.println(user.equipments[i].name);
-            equipmentsNames[i] = user.equipments[i].name;
+        avalibleEquipments = new ConnDB().getAvailableEquipment();
+        
+        String[] equipmentsNames = new String[avalibleEquipments.length];
+        for (int i = 0; i < avalibleEquipments.length; i++) {
+            System.out.println(avalibleEquipments[i].name);
+            equipmentsNames[i] = avalibleEquipments[i].name;
         }
 
-        damageList.setModel(
+        equipmentsList1.setModel(
                 new javax.swing.AbstractListModel<String>() {
             String[] strings = equipmentsNames;
 
@@ -76,6 +82,7 @@ public class ReturnJPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         damgeTextArea = new javax.swing.JTextArea();
+        rentButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setMinimumSize(new java.awt.Dimension(100, 100));
@@ -134,12 +141,19 @@ public class ReturnJPanel extends javax.swing.JPanel {
         damgeTextArea.setRows(5);
         jScrollPane3.setViewportView(damgeTextArea);
 
+        rentButton.setText("استعر");
+        rentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rentButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(599, Short.MAX_VALUE)
+                .addContainerGap(608, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -147,19 +161,25 @@ public class ReturnJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel6))
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(40, 40, 40)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(modelLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(nameLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(levelLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(idLabel, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(modelLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(nameLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(levelLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(idLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(rentButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)))
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60))
@@ -169,10 +189,11 @@ public class ReturnJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(nameLabel)
                                 .addGap(40, 40, 40)
@@ -189,8 +210,11 @@ public class ReturnJPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel4)
                                 .addGap(40, 40, 40)
                                 .addComponent(jLabel3)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(rentButton))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,24 +227,24 @@ public class ReturnJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void damageListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_damageListMouseClicked
-        Equipment equipment = user.equipments[equipmentsList1.getSelectedIndex()];
-        Damage damge = equipment.damges[damageList.getSelectedIndex()];
+        Equipment selectedEquipment = avalibleEquipments[equipmentsList1.getSelectedIndex()];
+        Damage damge = selectedEquipment.damges[damageList.getSelectedIndex()];
 
         damgeTextArea.setText(damge.description);
-        
+
     }//GEN-LAST:event_damageListMouseClicked
 
     private void equipmentsList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_equipmentsList1MouseClicked
-        Equipment equipment = user.equipments[equipmentsList1.getSelectedIndex()];
+
+        Equipment equipment = avalibleEquipments[equipmentsList1.getSelectedIndex()];
 
         nameLabel.setText(equipment.name);
         modelLabel.setText(equipment.model);
         levelLabel.setText("" + equipment.level);
         idLabel.setText("" + equipment.id);
 
-        String[] damgeNames = new String[user.equipments.length];
-        for (int i = 0; i < user.equipments.length; i++) {
-            System.out.println(user.equipments[i].name);
+        String[] damgeNames = new String[equipment.damges.length];
+        for (int i = 0; i < equipment.damges.length; i++) {
             damgeNames[i] = "الضرر " + i;
         }
 
@@ -242,6 +266,19 @@ public class ReturnJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_equipmentsList1MouseClicked
 
+    private void rentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentButtonActionPerformed
+        JOptionPane.showMessageDialog(this, "عند استعارتك انت تؤكد انك اطلعت على الأضرار السابقة وستتحمل مسؤلية اي ضرر اضافي");
+        Equipment equipment = avalibleEquipments[equipmentsList1.getSelectedIndex()];
+
+        user.rent(equipment);
+
+        JFrame mainFram = (JFrame) SwingUtilities.getWindowAncestor(this);
+        
+        mainFram.setContentPane(new RentJPanel(user));
+        mainFram.invalidate();
+        mainFram.validate();
+    }//GEN-LAST:event_rentButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> damageList;
@@ -260,5 +297,6 @@ public class ReturnJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel levelLabel;
     private javax.swing.JLabel modelLabel;
     private javax.swing.JLabel nameLabel;
+    private javax.swing.JButton rentButton;
     // End of variables declaration//GEN-END:variables
 }

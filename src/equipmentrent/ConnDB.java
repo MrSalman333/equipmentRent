@@ -145,11 +145,11 @@ public class ConnDB {
             if (rs.first()) {//cheack if there is any data returned from the DataBase
                 System.out.println("The equpment exists");
                 if (userId != 0) {
-                    stat.executeUpdate("UPDATE equipmentrent SET rentedBy=" + userId + ", available=1 WHERE id=" + equId);
+                    stat.executeUpdate("UPDATE equipmentrent SET rentedBy=" + userId + ", available=0 WHERE id=" + equId);
                 } //updated the data in the DataBase
                 else {
                     System.out.println("id is 0");
-                    stat.executeUpdate("UPDATE equipmentrent SET rentedBy=NULL WHERE id=" + equId);
+                    stat.executeUpdate("UPDATE equipmentrent SET rentedBy=NULL,available=1 WHERE id=" + equId);
                 }
 
                 return true;
@@ -335,6 +335,34 @@ public class ConnDB {
             System.err.println("insertData Error " + e);
             return false;
         }
+    }
+    
+    public Equipment[] getAvailableEquipment(){
+       ArrayList<Equipment> e = new ArrayList<>();
+       
+       String query = "SELECT * FROM equipmentrent WHERE available = 1";
+
+        try {
+            rs = stat.executeQuery(query);
+
+            while (rs.next()) {
+                e.add(new Equipment(
+                        rs.getInt("level"), 
+                        rs.getInt("id"), 
+                        rs.getString("name"), 
+                        rs.getString("model"), 
+                        true, 
+                        ""));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnDB.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+       
+       if(e.isEmpty())
+           return null;
+       else
+           return e.toArray(new Equipment[e.size()]);
     }
 
 }

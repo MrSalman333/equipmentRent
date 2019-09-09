@@ -1,6 +1,9 @@
 
 import equipmentrent.User;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,6 +25,8 @@ public class MainJFrame extends javax.swing.JFrame {
         this.setUndecorated(true);
         initComponents();
         this.setExtendedState(this.MAXIMIZED_BOTH);
+        keyScanner.requestFocus();
+
     }
 
     /**
@@ -134,7 +139,7 @@ public class MainJFrame extends javax.swing.JFrame {
             this.setContentPane(new UserJPanel(user));
             this.invalidate();
             this.validate();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Bad key!");
             keyScanner.requestFocus();
             keyScanner.setText("");
@@ -175,6 +180,8 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
     }
+    
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
