@@ -81,12 +81,30 @@ public class EquipmentRent extends Application {
         } else {
             System.out.println("user.rent dosn't work!");
         }
-        Thread.sleep(4000);
+        Thread.sleep(1000);
         if (user.returnRent(equpment)) {
             System.out.println("user.returnRent works!");
         } else {
             System.out.println("user.returnRent dosn't work!");
         }
+        
+        System.out.println("");
+        System.out.println("!-------------RENT EQUPMENT--------------!");
+        
+        if (user.rent(equpment)) {
+            System.out.println("user.rent works!");
+        } else {
+            System.out.println("user.rent dosn't work!");
+        }
+        Thread.sleep(1000);
+        if (user.returnRent(equpment,"some damge")) {
+            System.out.println("user.returnRent works!");
+        } else {
+            System.out.println("user.returnRent dosn't work!");
+        }
+        
+        System.out.println("");
+        System.out.println("!-------------RENT WITH DAMAGE EQUPMENT--------------!");
 
     }
 
