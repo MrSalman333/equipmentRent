@@ -360,8 +360,10 @@ public class ConnDB {
     
     private boolean insertData(Equipment equipment) {
         try {
-            stat.execute("INSERT INTO `equipmentrent`(`id`, `name`, `level`, `model`, `available`)"
-                    + " VALUES ("+equipment.id+",\""+equipment.name+"\","+equipment.level+",\""+equipment.model+"\","+equipment.id+",1)");
+            String q = "INSERT INTO `equipmentrent`(`id`, `name`, `level`, `model`, `available`)"
+                    + " VALUES ("+equipment.id+",\""+equipment.name+"\","+equipment.level+",\""+equipment.model+"\",1)";
+            //System.out.println(q);
+            stat.execute(q);
             System.out.println("inserted");
             return true;
         } catch (SQLException e) {

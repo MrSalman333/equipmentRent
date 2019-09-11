@@ -4,10 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Salman/Documents/Programming/JUC/equipmentRent/src/equipmentrent/User.java</file>
-            <file>file:/C:/Users/Salman/Documents/Programming/JUC/equipmentRent/src/pcsp/Delivery_1.fxml</file>
+            <file>file:/C:/Users/Salman/Documents/Programming/JUC/equipmentRent/src/ReturnJPanel.java</file>
+            <file>file:/C:/Users/Salman/Documents/Programming/JUC/equipmentRent/nbproject/jfx-impl.xml</file>
+            <file>file:/C:/Users/Salman/Documents/Programming/JUC/equipmentRent/src/equipmentrent/ConnDB.java</file>
+            <file>file:/C:/Users/Salman/Documents/Programming/JUC/equipmentRent/src/equipmentrent/Equipment.java</file>
             <file>file:/C:/Users/Salman/Documents/Programming/JUC/equipmentRent/src/equipmentrent/EquipmentRent.java</file>
-            <file>file:/C:/Users/Salman/Documents/Programming/JUC/equipmentRent/src/equipmentrent/mySqlDB.java</file>
-            <file>file:/C:/Users/Salman/Documents/Programming/JUC/equipmentRent/src/pcsp/Delivery_1Controller.java</file>
+            <file>file:/C:/Users/Salman/Documents/Programming/JUC/equipmentRent/src/UserJPanel.java</file>
+            <file>file:/C:/Users/Salman/Documents/Programming/JUC/equipmentRent/src/MainJFrame.java</file>
+            <file>file:/C:/Users/Salman/Documents/Programming/JUC/equipmentRent/src/AddUserPanel.java</file>
+            <file>file:/C:/Users/Salman/Documents/Programming/JUC/equipmentRent/src/AddEquipmentPanel.java</file>
         </group>
     </open-files>
 </project-private>

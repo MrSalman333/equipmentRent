@@ -14,6 +14,7 @@ public class Equipment {
     public String name, model, rentedBy;
     public boolean available;
     public Damage[] damges;
+    private static ConnDB cn ;
 
     public Equipment(int level, int id, String name, String model, boolean available, String rentedBy) {
         this.level = level;
@@ -26,8 +27,9 @@ public class Equipment {
         } else {
             this.rentedBy = rentedBy;
         }
-
-        damges = new ConnDB().getDamges(id);
+        if(cn == null)
+            cn = new ConnDB();
+        damges = cn.getDamges(id);
     }
 
     public Equipment(int level, int id, String name, String model, boolean available) {
@@ -36,8 +38,10 @@ public class Equipment {
         this.name = name;
         this.model = model;
         this.available = available;
-
-        damges = new ConnDB().getDamges(id);
+        
+        if(cn == null)
+            cn = new ConnDB();
+        damges = cn.getDamges(id);
     }
 
     public Equipment(int id) {
@@ -47,7 +51,9 @@ public class Equipment {
     
     public static Equipment creatEquipment(String name, String model, int level) {
         System.out.println("create equipment random id");
-        ConnDB cn = new ConnDB();
+        if(cn == null)
+            cn = new ConnDB();
+        
         int id;
         String barrcode = null;
         Equipment e;
