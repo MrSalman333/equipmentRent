@@ -7,7 +7,6 @@ package equipmentrent;
 
 import com.keepautomation.barcode.BarCode;
 import com.keepautomation.barcode.IBarCode;
-import java.sql.Timestamp;
 
 /**
  *

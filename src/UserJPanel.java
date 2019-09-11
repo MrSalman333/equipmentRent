@@ -137,11 +137,19 @@ public class UserJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_returnButtonActionPerformed
 
     private void addUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserButtonActionPerformed
-        // TODO add your handling code here:
+        JFrame mainFram = (JFrame) SwingUtilities.getWindowAncestor(this);
+
+        mainFram.setContentPane(new AddUserPanel(user));
+        mainFram.invalidate();
+        mainFram.validate();
     }//GEN-LAST:event_addUserButtonActionPerformed
 
     private void addEquepmentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEquepmentButtonActionPerformed
-        // TODO add your handling code here:
+        JFrame mainFram = (JFrame) SwingUtilities.getWindowAncestor(this);
+
+        mainFram.setContentPane(new AddEquipmentPanel(user));
+        mainFram.invalidate();
+        mainFram.validate();
     }//GEN-LAST:event_addEquepmentButtonActionPerformed
 
 

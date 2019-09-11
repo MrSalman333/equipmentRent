@@ -80,6 +80,27 @@ public class ConnDB {
 
     }
 
+    public boolean update(Equipment equipment) {
+        String query = "SELECT * FROM equipmentrent WHERE id =" + equipment.id; //searsh from data with this ID
+        try {
+            rs = stat.executeQuery(query);
+
+            if (rs.first()) {//cheack if there is any data returned from the DataBase
+                System.out.println("The id alrady exists in equipment");
+                return false;
+                
+            } else { //the equipemnt is not in the DataBase
+                System.out.println("Trying to insert");
+                return insertData(equipment);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("error while cheacking the data" + ex.getMessage());
+            return false;
+        }
+
+    }
+
     public boolean update(Rent r) {
         String query = "SELECT * FROM rent WHERE id =" + r.id; //searsh from data with this ID
         try {
@@ -126,7 +147,7 @@ public class ConnDB {
             }
             System.out.println("Trying to insert");
             String q = "INSERT INTO `damage`(`description`,`equId`,`userId`,`rentId`) "
-                    + "VALUES (\""+d.description+"\","+d.equId+","+d.userId+","+d.rentId+")";
+                    + "VALUES (\"" + d.description + "\"," + d.equId + "," + d.userId + "," + d.rentId + ")";
             stat.execute(q);
             System.out.println("inserted");
             return true;
@@ -305,14 +326,14 @@ public class ConnDB {
             rs = stat.executeQuery(query);
             while (rs.next()) {
                 //System.out.println("while");
-                
-                    System.out.println("the rent is there");
-                    r.id = rs.getInt("id");
-                    r.checkOut = rs.getTimestamp("checkOut");
-                    r.equId = rs.getInt("equId");
-                    r.userId = rs.getBigDecimal("userId").longValue();
-                    return true;
-                 
+
+                System.out.println("the rent is there");
+                r.id = rs.getInt("id");
+                r.checkOut = rs.getTimestamp("checkOut");
+                r.equId = rs.getInt("equId");
+                r.userId = rs.getBigDecimal("userId").longValue();
+                return true;
+
             }
 
             System.out.println("no open Rent");
@@ -337,32 +358,45 @@ public class ConnDB {
         }
     }
     
-    public Equipment[] getAvailableEquipment(){
-       ArrayList<Equipment> e = new ArrayList<>();
-       
-       String query = "SELECT * FROM equipmentrent WHERE available = 1";
+    private boolean insertData(Equipment equipment) {
+        try {
+            stat.execute("INSERT INTO `equipmentrent`(`id`, `name`, `level`, `model`, `available`)"
+                    + " VALUES ("+equipment.id+",\""+equipment.name+"\","+equipment.level+",\""+equipment.model+"\","+equipment.id+",1)");
+            System.out.println("inserted");
+            return true;
+        } catch (SQLException e) {
+            System.err.println("insertData Error " + e);
+            return false;
+        }
+    }
+
+    public Equipment[] getAvailableEquipment() {
+        ArrayList<Equipment> e = new ArrayList<>();
+
+        String query = "SELECT * FROM equipmentrent WHERE available = 1";
 
         try {
             rs = stat.executeQuery(query);
 
             while (rs.next()) {
                 e.add(new Equipment(
-                        rs.getInt("level"), 
-                        rs.getInt("id"), 
-                        rs.getString("name"), 
-                        rs.getString("model"), 
-                        true, 
+                        rs.getInt("level"),
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("model"),
+                        true,
                         ""));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ConnDB.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-       
-       if(e.isEmpty())
-           return null;
-       else
-           return e.toArray(new Equipment[e.size()]);
+
+        if (e.isEmpty()) {
+            return null;
+        } else {
+            return e.toArray(new Equipment[e.size()]);
+        }
     }
 
 }
