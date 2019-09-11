@@ -58,6 +58,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x62a;&#x633;&#x644;&#x64a;&#x645;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="returnButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="greatingLabel">
       <Properties>

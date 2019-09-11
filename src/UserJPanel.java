@@ -53,6 +53,11 @@ public class UserJPanel extends javax.swing.JPanel {
         });
 
         returnButton.setText("تسليم");
+        returnButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnButtonActionPerformed(evt);
+            }
+        });
 
         greatingLabel.setFont(new java.awt.Font("Traditional Arabic", 1, 24)); // NOI18N
         greatingLabel.setText("مرحبا : ");
@@ -92,6 +97,14 @@ public class UserJPanel extends javax.swing.JPanel {
         mainFram.invalidate();
         mainFram.validate();
     }//GEN-LAST:event_rentButtonActionPerformed
+
+    private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
+        JFrame mainFram = (JFrame) SwingUtilities.getWindowAncestor(this);
+
+        mainFram.setContentPane(new ReturnJPanel(user));
+        mainFram.invalidate();
+        mainFram.validate();
+    }//GEN-LAST:event_returnButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
