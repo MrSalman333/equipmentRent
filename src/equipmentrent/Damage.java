@@ -5,21 +5,35 @@
  */
 package equipmentrent;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author MrS
  */
 public class Damage {
     
-    public String id, description , equId , imgPath , userId , rentId ;
+    public int id , equId    , rentId ;
+    public String description,imgPath;
+    public java.sql.Timestamp timeStamp;
+    private final static String THEPATH = "some path";
+    public long userId;
 
-    public Damage(String id, String description, String equId, String imgPath, String userId, String rentId) {
+    public Damage(int id, int equId, long userId, int rentId, String description) {
         this.id = id;
-        this.description = description;
         this.equId = equId;
-        this.imgPath = imgPath;
+        imgPath = THEPATH+id;
         this.userId = userId;
         this.rentId = rentId;
+        this.description = description;
+    }
+    public Damage( int equId, long userId, int rentId, String description) {
+        
+        this.equId = equId;
+        imgPath = THEPATH+id;
+        this.userId = userId;
+        this.rentId = rentId;
+        this.description = description;
     }
     
     
