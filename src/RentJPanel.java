@@ -73,6 +73,7 @@ public class RentJPanel extends javax.swing.JPanel {
         rentButton = new javax.swing.JButton();
         keyScanner = new javax.swing.JTextField();
         scannFoucsButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setMinimumSize(new java.awt.Dimension(100, 100));
@@ -136,6 +137,13 @@ public class RentJPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("عودة");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -150,7 +158,9 @@ public class RentJPanel extends javax.swing.JPanel {
                         .addGap(40, 40, 40))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(keyScanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(90, 90, 90)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addGap(11, 11, 11)
                         .addComponent(scannFoucsButton)
                         .addGap(8, 8, 8)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -180,31 +190,30 @@ public class RentJPanel extends javax.swing.JPanel {
                 .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(nameLabel)
-                                .addGap(40, 40, 40)
-                                .addComponent(modelLabel)
-                                .addGap(40, 40, 40)
-                                .addComponent(idLabel)
-                                .addGap(40, 40, 40)
-                                .addComponent(levelLabel))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(40, 40, 40)
-                                .addComponent(jLabel1)
-                                .addGap(40, 40, 40)
-                                .addComponent(jLabel4)
-                                .addGap(40, 40, 40)
-                                .addComponent(jLabel3)))
-                        .addGap(0, 48, Short.MAX_VALUE))
+                        .addComponent(nameLabel)
+                        .addGap(40, 40, 40)
+                        .addComponent(modelLabel)
+                        .addGap(40, 40, 40)
+                        .addComponent(idLabel)
+                        .addGap(40, 40, 40)
+                        .addComponent(levelLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel1)
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel4)
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rentButton)
                             .addComponent(keyScanner, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(scannFoucsButton)))))
+                            .addComponent(scannFoucsButton)
+                            .addComponent(jButton1))))
+                .addGap(0, 4, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,11 +289,20 @@ public class RentJPanel extends javax.swing.JPanel {
         keyScanner.requestFocus();
     }//GEN-LAST:event_scannFoucsButtonActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JFrame mainFram = (JFrame) SwingUtilities.getWindowAncestor(this);
+
+        mainFram.setContentPane(new UserJPanel(user));
+        mainFram.invalidate();
+        mainFram.validate();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> damageList;
     private javax.swing.JTextArea damgeTextArea;
     private javax.swing.JLabel idLabel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

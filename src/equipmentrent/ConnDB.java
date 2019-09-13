@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 public class ConnDB {
 
-    private static final String USERNAME = "root";
+    private static final String USERNAME = "java";
     private static final String PASSWORD = "";
     private static final String CONN_STRING = "jdbc:mysql://localhost:3306/equipmentrent";
 

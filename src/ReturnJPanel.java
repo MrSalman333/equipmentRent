@@ -73,6 +73,7 @@ public class ReturnJPanel extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         damgeTextArea = new javax.swing.JTextArea();
         returnButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setMinimumSize(new java.awt.Dimension(100, 100));
@@ -123,16 +124,28 @@ public class ReturnJPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("عودة");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(608, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addGap(50, 50, 50)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)
+                        .addGap(50, 50, 50))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(167, 167, 167)
@@ -182,7 +195,9 @@ public class ReturnJPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel3))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(297, 297, 297)
-                                .addComponent(returnButton)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(returnButton)
+                                    .addComponent(jButton1))))
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(73, 73, 73)
@@ -234,18 +249,22 @@ public class ReturnJPanel extends javax.swing.JPanel {
         } else {
             user.returnRent(equipment, damgeTextArea.getText());
         }
+    }//GEN-LAST:event_returnButtonActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         JFrame mainFram = (JFrame) SwingUtilities.getWindowAncestor(this);
-        mainFram.setContentPane(new RentJPanel(user));
+
+        mainFram.setContentPane(new UserJPanel(user));
         mainFram.invalidate();
         mainFram.validate();
-    }//GEN-LAST:event_returnButtonActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea damgeTextArea;
     private javax.swing.JList<String> equipmentsList;
     private javax.swing.JLabel idLabel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
