@@ -19,7 +19,7 @@ public class ConnDB {
 
     private static final String USERNAME = "java";
     private static final String PASSWORD = "";
-    private static final String CONN_STRING = "jdbc:mysql://localhost:3306/equipmentrent?characterEncoding=utf8";
+    private static final String CONN_STRING = "jdbc:mysql://localhost:3306/equipmentrent";
 
     private Connection con;
     private Statement stat;
@@ -33,7 +33,7 @@ public class ConnDB {
 
             con = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
             stat = con.createStatement();
-            
+
             //System.out.println("database DONE!!!!");
         } catch (Exception e) {
             System.err.println("myError" + e);
