@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 11, 2019 at 07:15 PM
+-- Generation Time: Sep 13, 2019 at 12:58 PM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.3.5
 
@@ -48,7 +48,8 @@ INSERT INTO `damage` (`id`, `description`, `equId`, `userId`, `rentId`) VALUES
 (5, 'SOME DAMGE', 3321, 1100, 120),
 (6, 'some damge', 3321, 1100, 122),
 (7, 'oooops', 3321, 371100178, 125),
-(8, 'SOME DAMGE', 3321, 1100, 124);
+(8, 'SOME DAMGE', 3321, 1100, 124),
+(9, 'SOME DAMGE', 3321, 0, 131);
 
 -- --------------------------------------------------------
 
@@ -121,7 +122,10 @@ INSERT INTO `rent` (`id`, `checkIn`, `checkOut`, `equId`, `userId`, `open`) VALU
 (125, '2019-09-09 05:09:55', '2019-09-09 04:40:52', 3321, 371100178, 0),
 (126, NULL, '2019-09-09 04:43:04', 3321, 371100178, 1),
 (127, NULL, '2019-09-11 13:22:19', 3321, 1100, 1),
-(128, NULL, '2019-09-11 13:22:20', 3321, 1100, 1);
+(128, NULL, '2019-09-11 13:22:20', 3321, 1100, 1),
+(129, '2019-09-13 10:48:33', '2019-09-13 10:36:02', 467308, 1, 0),
+(130, '2019-09-13 10:48:10', '2019-09-13 10:48:09', 3321, 0, 0),
+(131, '2019-09-13 10:48:10', '2019-09-13 10:48:10', 3321, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -182,13 +186,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `damage`
 --
 ALTER TABLE `damage`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `rent`
 --
 ALTER TABLE `rent`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

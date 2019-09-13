@@ -129,10 +129,7 @@ public class AddEquipmentPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "حدث خطأ!!!");
 
         }
-        JFrame mainFram = (JFrame) SwingUtilities.getWindowAncestor(this);
-        mainFram.setContentPane(new UserJPanel(user));
-        mainFram.invalidate();
-        mainFram.validate();
+        
 
     }//GEN-LAST:event_submitButtonActionPerformed
 
