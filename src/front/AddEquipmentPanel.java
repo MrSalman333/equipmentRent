@@ -126,7 +126,7 @@ public class AddEquipmentPanel extends javax.swing.JPanel {
            
 
         if (e != null) {
-            JOptionPane.showMessageDialog(this, "تمت اضافة المستخدم بنجاح");
+            JOptionPane.showMessageDialog(this, "تمت اضافة المعدة  بنجاح");
         } else {
             JOptionPane.showMessageDialog(this, "حدث خطأ!!!");
 

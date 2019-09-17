@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="EquipmentRent.jnlp">
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="EquipmentRent_browser.jnlp">
   <information>
     <title>EquipmentRent</title>
     <vendor>Salman</vendor>
@@ -12,7 +12,7 @@
     <jar href="lib\com.keepautomation.barcode.jar" size="229855" download="eager" />
     <jar href="lib\mysql-connector-java-5.1.23-bin.jar" size="834126" download="eager" />
   </resources>
-  <application-desc main-class="front.MainJFrame"  name="EquipmentRent" >
-  </application-desc>
+  <applet-desc  width="800" height="600" main-class="front.MainJFrame"  name="EquipmentRent" >
+  </applet-desc>
   <update check="always"/>
 </jnlp>

@@ -251,6 +251,11 @@ public class ReturnJPanel extends javax.swing.JPanel {
         } else {
             user.returnRent(equipment, damgeTextArea.getText());
         }
+        JFrame mainFram = (JFrame) SwingUtilities.getWindowAncestor(this);
+
+        mainFram.setContentPane(new UserJPanel(user));
+        mainFram.invalidate();
+        mainFram.validate();
     }//GEN-LAST:event_returnButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

@@ -1,6 +1,5 @@
 package front;
 
-
 import equipmentrent.ConnDB;
 import equipmentrent.Damage;
 import equipmentrent.Equipment;
@@ -43,10 +42,8 @@ public class RentJPanel extends javax.swing.JPanel {
             System.out.println(avalibleEquipments[i].name);
             equipmentsNames[i] = avalibleEquipments[i].name;
         }
-        
-        keyScanner.requestFocus();
 
-        
+        keyScanner.requestFocus();
 
     }
 
@@ -248,34 +245,40 @@ public class RentJPanel extends javax.swing.JPanel {
     private void keyScannerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keyScannerActionPerformed
         selectedEquipment = Equipment.getEquipment(Integer.valueOf(keyScanner.getText()));
         if (selectedEquipment != null) {
-            damageList.setEnabled(true);
-            rentButton.setEnabled(true);
-            nameLabel.setText(selectedEquipment.name);
-            modelLabel.setText(selectedEquipment.model);
-            levelLabel.setText("" + selectedEquipment.level);
-            idLabel.setText("" + selectedEquipment.id);
+            if (selectedEquipment.level > user.level) {
+                JOptionPane.showMessageDialog(this, "عذرا هذه المعدة غير متاحة لك");
+                keyScanner.requestFocus();
+                keyScanner.setText("");
+            } else {
+                damageList.setEnabled(true);
+                rentButton.setEnabled(true);
+                nameLabel.setText(selectedEquipment.name);
+                modelLabel.setText(selectedEquipment.model);
+                levelLabel.setText("" + selectedEquipment.level);
+                idLabel.setText("" + selectedEquipment.id);
 
-            String[] damgeNames = new String[selectedEquipment.damges.length];
-            for (int i = 0; i < selectedEquipment.damges.length; i++) {
-                damgeNames[i] = "الضرر " + i;
-            }
-
-            damageList.setModel(
-                    new javax.swing.AbstractListModel<String>() {
-                String[] strings = damgeNames;
-
-                @Override
-                public int getSize() {
-                    return strings.length;
+                String[] damgeNames = new String[selectedEquipment.damges.length];
+                for (int i = 0; i < selectedEquipment.damges.length; i++) {
+                    damgeNames[i] = "الضرر " + i;
                 }
 
-                @Override
-                public String getElementAt(int i) {
-                    return strings[i];
-                }
-            }
-            );
+                damageList.setModel(
+                        new javax.swing.AbstractListModel<String>() {
+                    String[] strings = damgeNames;
 
+                    @Override
+                    public int getSize() {
+                        return strings.length;
+                    }
+
+                    @Override
+                    public String getElementAt(int i) {
+                        return strings[i];
+                    }
+                }
+                );
+
+            }
         } else {
             JOptionPane.showMessageDialog(this, "مفتاح خطأ , امسح مرة اخرى");
             keyScanner.requestFocus();

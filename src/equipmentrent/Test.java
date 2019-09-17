@@ -11,7 +11,7 @@ package equipmentrent;
  */
 public class Test {
 
-    public static void main(String[] args) throws InterruptedException {
+    /*public static void main(String[] args) throws InterruptedException {
         System.out.println("!-------------START TEST--------------!");
         User user = User.getUser("510445228399963851");
         System.out.println("");
@@ -41,6 +41,6 @@ public class Test {
         System.out.println("");
         System.out.println("!-------------RENT AND RETUNR WITH DAMEGE--------------!");
 
-    }
+    }*/
 
 }
