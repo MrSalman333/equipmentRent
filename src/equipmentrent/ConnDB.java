@@ -5,6 +5,10 @@
  */
 package equipmentrent;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.security.PublicKey;
 import java.sql.*;
 
@@ -17,16 +21,16 @@ import java.util.logging.Logger;
 
 public class ConnDB {
 
-    private static final String USERNAME = "java";
+    private static final String USERNAME = "root";
     private static final String PASSWORD = "";
-    private static final String CONN_STRING = "jdbc:mysql://localhost:3306/equipmentrent";
+    private static String CONN_STRING = "";
 
     private Connection con;
     private Statement stat;
     private ResultSet rs;
 
     public ConnDB() {
-
+        setCONN_STRING();
         try {
 
             Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -37,6 +41,32 @@ public class ConnDB {
             //System.out.println("database DONE!!!!");
         } catch (Exception e) {
             System.err.println("myError" + e);
+        }
+    }
+
+    private void setCONN_STRING() {
+
+        // The name of the file to open.
+        String fileName = "store/sqlURL.txt";
+
+        // This will reference one line at a time
+        String line;
+
+        try {
+            // FileReader reads text files in the default encoding.
+            FileReader fileReader = new FileReader(fileName);
+
+            try ( // Always wrap FileReader in BufferedReader.
+                    BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+                CONN_STRING = bufferedReader.readLine();
+                // Always close files.
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println("Unable to open file '" + fileName + "'");
+        } catch (IOException ex) {
+            System.out.println("Error reading file '" + fileName + "'");
+            // Or we could just do this: 
+            // ex.printStackTrace();
         }
     }
 
@@ -88,7 +118,7 @@ public class ConnDB {
             if (rs.first()) {//cheack if there is any data returned from the DataBase
                 System.out.println("The id alrady exists in equipment");
                 return false;
-                
+
             } else { //the equipemnt is not in the DataBase
                 System.out.println("Trying to insert");
                 return insertData(equipment);
@@ -357,11 +387,11 @@ public class ConnDB {
             return false;
         }
     }
-    
+
     private boolean insertData(Equipment equipment) {
         try {
             String q = "INSERT INTO `equipmentrent`(`id`, `name`, `level`, `model`, `available`)"
-                    + " VALUES ("+equipment.id+",\""+equipment.name+"\","+equipment.level+",\""+equipment.model+"\",1)";
+                    + " VALUES (" + equipment.id + ",\"" + equipment.name + "\"," + equipment.level + ",\"" + equipment.model + "\",1)";
             //System.out.println(q);
             stat.execute(q);
             System.out.println("inserted");
